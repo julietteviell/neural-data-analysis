@@ -1,4 +1,4 @@
-# Spinal Cord (SC) Neuron Response Analysis — Ipsi/Contra Paw Stimulation
+# Classification
 
 This MATLAB script processes electrophysiological recordings from dorsal horn (DH) spinal cord neurons, classifies cells based on their responsiveness to sensory stimuli, and plots peri-event activity (raw/normalized and z-scored) for ipsilateral vs. contralateral paw stimulation, split by cell category and by event type.
 
