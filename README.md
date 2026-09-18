@@ -36,7 +36,3 @@ This MATLAB script processes electrophysiological recordings from dorsal horn (D
 - **Figure 1 — Z-scored activity**: grid of subplots with cell categories (`sensory`, `UR`, `PNLA`, `MNLA`, `TLA`, `MLA`, `PLA`, ...) as columns and selected events (thermal withdrawal, mechanical withdrawal) as rows. Each subplot overlays ipsilateral (paw stimulation ipsi to the recorded dorsal horn) vs. contralateral mean z-scored activity ± SEM.
 - **Figure 2 — Normalized activity**: same layout, using normalized (non z-scored) firing rate instead of z-score.
 
-## Notes
-
-- `selectedNames = [2 4]` restricts the plotted events to indices 2 and 4 of `varstring` (thermal withdrawal and mechanical withdrawal).
-- Y-axis limits for the normalized plots are set per condition via `cond.axisNorm`; the z-score axis is currently hardcoded (`[-2.5 10 -1 6]`) rather than using `cond.axisZscore`.
