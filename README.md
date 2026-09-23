@@ -1,6 +1,6 @@
 # neural-data-analysis
 
-This repository contains all MATLAB code and processed data required to reproduce the figures of the manuscript. Each figure has its own folder with the scripts and the `.mat` data files needed to run it. Example data from a single mouse is provided so every script runs out of the box.
+This repository contains all MATLAB code and processed data required to reproduce the panels that needed a MATLAB code in the manuscript. Each figure has its own folder with the scripts and the `.mat` data files needed to run it. Example data from a single mouse is provided so every script runs out of the box.
 
 ## Repository structure
 
@@ -33,7 +33,7 @@ Each `figN/` folder is self-contained:
 
 The script loads the example `.mat` files provided in the same folder and generates the figure panels. No additional setup is required for the example data.
 
-> **Note:** The provided data are from a single example mouse, meant to demonstrate the pipeline. Figures in the manuscript are based on the full dataset across animals; contact the corresponding author for access.
+> **Note:** The provided data are from a single example mouse, meant to demonstrate the pipeline. processed data are also provided for the different codes. Figures in the manuscript are based on the full dataset across animals; contact the corresponding author for access if needed.
 
 ## Data
 
