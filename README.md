@@ -1,42 +1,48 @@
-# Classification
+# neural-data-analysis
 
-This MATLAB script processes electrophysiological recordings from dorsal horn (DH) spinal cord neurons, classifies cells based on their responsiveness to sensory stimuli, and plots peri-event activity (raw/normalized and z-scored) for ipsilateral vs. contralateral paw stimulation, split by cell category and by event type.
+This repository contains all MATLAB code and processed data required to reproduce the figures of the manuscript. Each figure has its own folder with the scripts and the `.mat` data files needed to run it. Example data from a single mouse is provided so every script runs out of the box.
 
-## Overview of the workflow
+## Repository structure
 
-1. **Data loading & organization** — loads per-mouse recording files, splits units into left (`L`) and right (`R`) dorsal horn groups based on channel numbering, and reorganizes them into ipsi/contra (`LDH`/`RDH`) structures.
-2. **Binned spike counts** — computes peri-event time histograms (raw and normalized) around each stimulus/withdrawal event, for both paws.
-3. **Concatenation across animals** — merges per-animal binned data into single population-level structures (`miceall`, `normiceall`).
-4. **Cell classification** — z-scores each neuron's response, classifies neurons as activated/inhibited/unresponsive per event, and builds ordered response heatmaps.
-5. **Plotting** — generates two summary figures (z-scored and normalized activity) with **cell categories as columns** and **event types as rows**, comparing ipsilateral vs. contralateral paw responses.
+Each `figN/` folder is self-contained:
 
-## Functions used
+- **Scripts** (`*.m`): MATLAB scripts that load the processed data and generate the panels of the corresponding figure.
+- **Functions** (`*.m`): MATLAB functions that are needed for the corresponding scripts.
+- **Data** (`*.mat`): pre-processed data files. For each figure, the data from one example mouse is provided either in the main branch (m31), or in the figure folder when needed, so the scripts can be run without the full dataset.
 
-### Local / defined in this script
+## Requirements
 
-| Function | Purpose |
-|---|---|
-| `computeMeanSEM(y)` | Computes the mean and standard error of the mean (SEM) across rows (neurons/trials) of a data matrix `y`. Returns the raw row if only one row is present (single-unit case), otherwise averages across the first dimension and divides the standard deviation by `sqrt(N)`. Used to build the mean traces and error bands plotted with `shadedErrorBar`. |
+- [MATLAB](https://www.mathworks.com/products/matlab.html) **R2024b or later**
 
-### External / dependency functions (defined elsewhere in the analysis pipeline)
+## Usage
 
-| Function | Purpose |
-|---|---|
-| `crosco(file, p)` | Removes duplicate units across recordings based on co-firing probability, returning a cleaned unit structure `x`. |
-| `freqVarRAMalg(var3d, varstring, b, bstring, p, file, edges, bin)` | Computes binned spike counts (mean firing rate) around each behavioral/stimulus event, returning both raw (`total_counts_mean_var`) and normalized (`total_counts_mean_var_norm`) peri-event time histograms per neuron. |
-| `zscoreVarSCRAMalgo(varstring, bstring, mice, g)` | Z-scores each neuron's peri-event response relative to its own baseline activity; also returns the baseline (`basal`) values used for normalization. |
-| `heatMapZscoreSCRAMalgo(zscored_all_varcr, normiceall, bstring, varstring, stringfile, edges, limi, g)` | Builds and orders response heatmaps of z-scored neuronal activity around each stimulus/withdrawal event, returning the sorting order (`order`) of neurons used for visualization. |
-| `cellClassBootStrapRAMalgo(varstring, bstring, normice, mice, files, edges)` | Classifies each neuron as activated or inhibited for each event type using a bootstrap-based statistical test, returning `actcells_all` and `inhcells_all` logical/index sets. |
-| `heatmapResponsivenessMatriceOfEvents2(zscored_all_varcr, varstring, bstring, stringfile, actcells_allcr, inhcells_allcr, g)` | Builds a combined responsiveness matrix/heatmap across all event types, returning the response panel, combined percentages, and left/right response indices. |
-| `shadedErrorBar(x, y, err, 'lineProps', ..., ...)` | Third-party plotting utility (Rob Campbell, MATLAB File Exchange) that draws a mean trace with a shaded error band (here, mean ± SEM) around it. |
-| `smooth(y, span, method)` | Built-in MATLAB (Curve Fitting Toolbox) function used to smooth the mean and SEM traces before plotting, using a **loess** (local regression) method with span `smoothParam`. |
+1. Clone the repository:
 
-## Figures produced
+   ```bash
+   git clone https://github.com/<user>/<repo>.git
+   cd <repo>
+   ```
 
-- **Figure 1 — Z-scored activity**: grid of subplots with cell categories (`sensory`, `UR`, `PNLA`, `MNLA`, `TLA`, `MLA`, `PLA`, ...) as columns and selected events (thermal withdrawal, mechanical withdrawal) as rows. Each subplot overlays ipsilateral (paw stimulation ipsi to the recorded dorsal horn) vs. contralateral mean z-scored activity ± SEM.
-- **Figure 2 — Normalized activity**: same layout, using normalized (non z-scored) firing rate instead of z-score.
+2. Open MATLAB (R2024b+) and `cd` into the repository folder.
 
-## Notes
+3. Run the script of the figure you want to reproduce, e.g.:
 
-- `selectedNames = [2 4]` restricts the plotted events to indices 2 and 4 of `varstring` (thermal withdrawal and mechanical withdrawal).
-- Y-axis limits for the normalized plots are set per condition via `cond.axisNorm`; the z-score axis is currently hardcoded (`[-2.5 10 -1 6]`) rather than using `cond.axisZscore`.
+   ```matlab
+   run('fig1/fig1_script.m')
+   ```
+
+The script loads the example `.mat` files provided in the same folder and generates the figure panels. No additional setup is required for the example data.
+
+> **Note:** The provided data are from a single example mouse, meant to demonstrate the pipeline. Figures in the manuscript are based on the full dataset across animals; contact the corresponding author for access.
+
+## Data
+
+The `.mat` files contain processed data (not raw recordings). Raw data are available from the corresponding author upon reasonable request.
+
+## License
+
+This project is licensed under the MIT License — see [LICENSE](LICENSE) for details.
+
+## Contact
+
+For questions about the code or data, please open an issue or contact the corresponding author.
