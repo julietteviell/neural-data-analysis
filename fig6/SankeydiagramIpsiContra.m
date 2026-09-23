@@ -1,7 +1,7 @@
 load('processed_data_classification_script_50msbin.mat','dataIPsicontrasanky2','dataIPsicontrasanky')
 %% Option 1: use a table
 
-data=dataIPsicontrasankyLANLA; %dataIPsicontrasankyAllcategories
+data=dataIPsicontrasankyLANLA; %dataIPsicontrasankyAllcategories % fig S5
 
 %% Customizable options
 % Colormap: can be the name of matlab colormaps or a matrix of (N x 3).
